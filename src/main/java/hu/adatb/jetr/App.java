@@ -11,8 +11,7 @@ public class App {
 
 	public static void main(String[] args) {
 		logger.info("Application started.");
-		new Controller().startDesktop();
-
+		new Controller();
 	}
 
 }
