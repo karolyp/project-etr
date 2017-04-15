@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class LoginWindow extends Application {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginWindow.class);
-	private static final String LABELS = "labels.properties";
+	private static final String LABELS = "login.properties";
 	private Properties labelsProps;
 
 	@Override

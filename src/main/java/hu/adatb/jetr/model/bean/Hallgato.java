@@ -26,6 +26,37 @@ public class Hallgato {
 	private boolean emailpublikus;
 	private int szak_azon;
 
+	public Hallgato(String eha, String jelszo, String hallgatoiazonosito, String vezeteknev, String utonev,
+			String szulnev, String anyjaneve, String szuletesihely, String szuletesiido, String allampolgarsag,
+			String nem, String varos, String iranyitoszam, String utca, String megye, String orszag,
+			String adoazonosito, String taj, String bankszamla, String mobil, String weblap, String email,
+			boolean emailpublikus, int szak_azon) {
+		this.eha = eha;
+		this.jelszo = jelszo;
+		this.hallgatoiazonosito = hallgatoiazonosito;
+		this.vezeteknev = vezeteknev;
+		this.utonev = utonev;
+		this.szulnev = szulnev;
+		this.anyjaneve = anyjaneve;
+		this.szuletesihely = szuletesihely;
+		this.szuletesiido = szuletesiido;
+		this.allampolgarsag = allampolgarsag;
+		this.nem = nem;
+		this.varos = varos;
+		this.iranyitoszam = iranyitoszam;
+		this.utca = utca;
+		this.megye = megye;
+		this.orszag = orszag;
+		this.adoazonosito = adoazonosito;
+		this.taj = taj;
+		this.bankszamla = bankszamla;
+		this.mobil = mobil;
+		this.weblap = weblap;
+		this.email = email;
+		this.emailpublikus = emailpublikus;
+		this.szak_azon = szak_azon;
+	}
+
 	public String getEha() {
 		return eha;
 	}

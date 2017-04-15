@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import hu.adatb.jetr.controller.PropertiesFactory;
+import hu.adatb.jetr.model.bean.HallgatoBasic;
 
 public class StudentDAO {
 	private static final Logger logger = LoggerFactory.getLogger(StudentDAO.class);
@@ -45,17 +46,29 @@ public class StudentDAO {
 
 	}
 
-	public boolean isStudentExist(String username, String password) throws SQLException {
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM HALLGATO WHERE EHA=? AND JELSZO",
-				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	private int getRowCount(ResultSet rs) throws SQLException {
+		int n = 0;
+		while (rs.next()) {
+			n++;
+		}
+		return n;
+	}
+
+	public HallgatoBasic getHallgatoByUsernamePassword(String username, String password) throws SQLException {
+		String sql = "SELECT * FROM H668139.HALLGATO WHERE EHA=? AND JELSZO=?";
+		PreparedStatement ps = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		ps.setString(1, username);
 		ps.setString(2, password);
+
 		ResultSet rs = ps.executeQuery();
 
-		if (username.equals(rs.getString(1)) && password.equals(rs.getString(2))) {
-			return true;
+		if (getRowCount(rs) == 1) {
+			rs.beforeFirst();
+			rs.next();
+			return new HallgatoBasic(rs.getString("EHA"), rs.getString("VEZETEKNEV"), rs.getString("UTONEV"));
 		}
-		return false;
+
+		return null;
 	}
 
 }

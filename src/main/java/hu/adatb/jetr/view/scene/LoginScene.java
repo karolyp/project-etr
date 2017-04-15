@@ -1,11 +1,13 @@
 package hu.adatb.jetr.view.scene;
 
+import java.sql.SQLException;
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import hu.adatb.jetr.controller.Controller;
+import hu.adatb.jetr.model.bean.HallgatoBasic;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +16,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -21,6 +25,8 @@ import javafx.scene.text.Text;
 public class LoginScene extends Scene {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginScene.class);
+
+	private Text actiontarget;
 
 	public LoginScene(GridPane grid, int i, int j, Properties labelsProps) {
 		super(grid, i, j);
@@ -46,25 +52,39 @@ public class LoginScene extends Scene {
 		hbBtn.getChildren().add(btn);
 		grid.add(hbBtn, 1, 4);
 
-		Text actiontarget = new Text();
+		actiontarget = new Text();
 		grid.add(actiontarget, 1, 6);
 
 		btn.setOnAction(e -> {
 			String username = userTextField.getText();
 			String password = pwBox.getText();
 			if (username.isEmpty() || password.isEmpty()) {
-				logger.error("Username and password have to be filled.");
+				writeActionResult(Color.FIREBRICK, labelsProps.getProperty("empty.fields"));
 				pwBox.setText("");
 			} else {
-				if (Controller.isStudentExist(username, password)) {
-					logger.info("Logged in as {}", username);
-				} else {
-					logger.error("Wrong username or password.");
-					pwBox.setText("");
+				try {
+					HallgatoBasic hb = Controller.getHallgatoByUsernamePassword(username, password);
+
+					if (hb != null) {
+						logger.info("Logged in as {}", hb.getEha());
+						writeActionResult(Color.GREEN, labelsProps.getProperty("login.successful"));
+					} else {
+						logger.error("Wrong username/password, user not found.");
+						writeActionResult(Color.FIREBRICK, labelsProps.getProperty("login.wrong"));
+						pwBox.setText("");
+					}
+
+				} catch (SQLException e1) {
+					logger.error("Unknown error occured when tried to log you in.", e1);
 				}
 			}
 
 		});
+	}
+
+	private void writeActionResult(Paint color, String message) {
+		this.actiontarget.setFill(color);
+		this.actiontarget.setText(message);
 	}
 
 }
