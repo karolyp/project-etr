@@ -15,22 +15,28 @@ import javafx.stage.Stage;
 
 public class View extends Application {
 	private final static Logger logger = LoggerFactory.getLogger(View.class);
+	private static Stage primaryStage;
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage stage) throws Exception {
+		primaryStage = stage;
 		Properties loginProps = PropertiesFactory.getProperties("login.properties");
 
-		FXMLLoader loader = new FXMLLoader(Thread.currentThread().getContextClassLoader().getResource("login.fxml"));
+		FXMLLoader loader = new FXMLLoader(Thread.currentThread().getContextClassLoader().getResource("Login.fxml"));
 		loginProps.stringPropertyNames().forEach(key -> loader.getNamespace().put(key, loginProps.getProperty(key)));
 		Parent root = loader.load();
 
 		logger.info("Login frame objects created.");
-
+		primaryStage.setResizable(false);
 		primaryStage.getIcons()
 				.add(new Image(Thread.currentThread().getContextClassLoader().getResourceAsStream("appicon.png")));
 		primaryStage.setTitle(loginProps.getProperty("login.title"));
 		primaryStage.setScene(new Scene(root, 300, 275));
 		primaryStage.show();
+	}
+
+	public static void closeLoginScene() {
+		primaryStage.hide();
 	}
 
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+	prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="hu.adatb.jetr.controller.MainController">
+	<top>
+		<MenuBar BorderPane.alignment="CENTER">
+			<menus>
+				<Menu mnemonicParsing="false" text="${menu1}">
+					<items>
+						<MenuItem mnemonicParsing="false" text="${menu1sub1}" />
+						<MenuItem mnemonicParsing="false" text="${menu1sub2}" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="${menu2}">
+					<items>
+						<MenuItem mnemonicParsing="false" text="${menu2sub1}" />
+						<MenuItem mnemonicParsing="false" text="${menu2sub2}" />
+						<MenuItem mnemonicParsing="false" text="${menu2sub3}" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="${menu3}">
+					<items>
+						<MenuItem mnemonicParsing="false" text="${menu3sub1}" />
+						<MenuItem mnemonicParsing="false" text="${menu3sub2}" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+	</top>
+</BorderPane>

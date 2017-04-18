@@ -23,7 +23,8 @@
 
 	<Label text="${eha}" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-	<TextField fx:id="ehaTxtFld" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+	<TextField fx:id="ehaTxtFld" GridPane.columnIndex="1"
+		GridPane.rowIndex="1" />
 
 	<Label text="${password}" GridPane.columnIndex="0"
 		GridPane.rowIndex="2" />
@@ -33,10 +34,10 @@
 
 	<HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1"
 		GridPane.rowIndex="4">
-		<Button text="${login_button}" onAction="#doLogin" />
+		<Button defaultButton="true" text="${login_button}" onAction="#doLogin" />
 	</HBox>
 
-	<Text GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="actionTarget"/>
+	<Text GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="actionTarget" />
 
 
 </GridPane>

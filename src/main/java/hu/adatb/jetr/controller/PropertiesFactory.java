@@ -19,7 +19,7 @@ public class PropertiesFactory {
 				throw new IOException();
 			}
 
-			logger.info("{} file loaded.", propsFile);
+			// logger.info("{} file loaded.", propsFile);
 
 			return props;
 

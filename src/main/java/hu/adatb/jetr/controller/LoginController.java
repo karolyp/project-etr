@@ -5,6 +5,8 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import hu.adatb.jetr.view.MainStage;
+import hu.adatb.jetr.view.View;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -41,12 +43,20 @@ public class LoginController {
 		password = pwFld.getText();
 
 		if (!eha.isEmpty() && !password.isEmpty()) {
-			if (Controller.getStudentDao().isExist(eha, password)) {
-				logger.info("Logged in as {}", eha);
-				setActionTargetText(Color.GREEN, this.loginProps.getProperty("login.successful"));
+			if (this.loginProps.getProperty("admin.username").equals(eha)
+					&& this.loginProps.get("admin.password").equals(password)) {
+				logger.info("Logged in as administrator.");
+				View.closeLoginScene();
+				new MainStage("adminisztrátor");
 			} else {
-				logger.error("Wrong EHA/password, user not found.");
-				setActionTargetText(Color.FIREBRICK, this.loginProps.getProperty("login.wrong"));
+				if (Controller.getStudentDao().isExist(eha, password)) {
+					logger.info("Logged in as {}", eha);
+					View.closeLoginScene();
+					new MainStage(eha);
+				} else {
+					logger.error("Wrong EHA/password, user not found.");
+					setActionTargetText(Color.FIREBRICK, this.loginProps.getProperty("login.wrong"));
+				}
 			}
 		} else {
 			logger.error("EHA and password have to be filled.");
