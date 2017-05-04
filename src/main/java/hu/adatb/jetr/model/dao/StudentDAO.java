@@ -8,14 +8,14 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hu.adatb.jetr.controller.PropertiesFactory;
+import hu.adatb.jetr.controller.Controller;
 
 public class StudentDAO {
 	private static final Logger logger = LoggerFactory.getLogger(StudentDAO.class);
 	private Connection conn;
 
 	public StudentDAO() {
-		this.conn = ConnectionFactory.getConnection(PropertiesFactory.getProperties("db.properties"));
+		this.conn = Controller.getConnection();
 	}
 
 	public boolean isExist(String username, String password) {
