@@ -15,15 +15,14 @@ import hu.adatb.jetr.model.bean.Kurzus;
 public class CourseDAO {
 	private Connection conn;
 
-
 	public CourseDAO() throws IOException {
 		this.conn = Controller.getConnection();
 	}
 
-	public List<Kurzus> getCourses() throws SQLException {
+	public List<Kurzus> getAvaliableCourses() throws SQLException {
 		List<Kurzus> courses = new ArrayList<>();
-		PreparedStatement ps = ScriptRunner.runScript(this.conn, "courses.sql");
-		ps.setString(1, "PAKXADT.SZE");
+		PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "avaliable_courses.sql");
+		ps.setString(1, System.getProperty("eha"));
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			courses.add(new Kurzus(
@@ -40,4 +39,11 @@ public class CourseDAO {
 		return courses;
 	}
 
+	public List<Kurzus> getRegisteredCourses(){
+		List<Kurzus> courses = new ArrayList<>();
+		
+		
+		return courses;
+	}
+	
 }

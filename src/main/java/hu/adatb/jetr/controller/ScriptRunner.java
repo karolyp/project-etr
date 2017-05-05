@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ScriptRunner {
-	public static PreparedStatement runScript(Connection conn, String path) {
+	public static PreparedStatement createPreparedStatement(Connection conn, String path) {
 		String query = "";
 		String line;
 		BufferedReader br = new BufferedReader(

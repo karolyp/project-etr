@@ -51,6 +51,7 @@ public class LoginController {
 			} else {
 				if (Controller.getStudentDao().isExist(eha, password)) {
 					logger.info("Logged in as {}", eha);
+					System.setProperty("eha", eha);
 					View.closeLoginScene();
 					new MainStage(eha);
 				} else {
