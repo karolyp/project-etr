@@ -28,7 +28,7 @@ public class StudentDAO {
 
 			ResultSet rs = ps.executeQuery();
 
-			if (getRowCount(rs) == 1) {
+			if (getRowCount(rs) == 1) { // TODO: Hallgato object
 				return true;
 			}
 

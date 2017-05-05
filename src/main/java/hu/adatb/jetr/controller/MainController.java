@@ -1,6 +1,7 @@
 package hu.adatb.jetr.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,14 @@ public class MainController {
 		try {
 			CourseDAO kurzusDao = new CourseDAO();
 
-			for (Kurzus k : kurzusDao.getCourses()) {
+			for (Kurzus k : kurzusDao.getCourses()) { // TODO: GUI
 				System.out.println(k.toString());
 			}
 
 		} catch (IOException e) {
 			logger.error("Error reading SQL script.");
+		} catch (SQLException e) {
+			logger.error("Error executing SQL script.");
 		}
 
 
