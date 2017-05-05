@@ -37,7 +37,7 @@
 		<Button defaultButton="true" text="${login_button}" onAction="#doLogin" />
 	</HBox>
 
-	<Text GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="actionTarget" />
+	<Text GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="actionTarget"  />
 
 
 </GridPane>
