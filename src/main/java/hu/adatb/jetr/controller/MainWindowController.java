@@ -1,5 +1,6 @@
 package hu.adatb.jetr.controller;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -30,13 +31,15 @@ public class MainWindowController {
 		this.mainWindow.getJMenuBar().getMenu(1).getItem(0).addActionListener(e -> {
 			List<KurzusBean> kurzusok = this.studentDao.getRegisteredCourses(this.hallgato);
 
-			this.registeredCourses = new RegisteredCoursesView(
-					this.createTable(new RegisteredCoursesTableModel(kurzusok)));
+			TableModel tm = new RegisteredCoursesTableModel(kurzusok);
+			JTable table = new JTable(tm);
+			table.setPreferredScrollableViewportSize(new Dimension(800, 600));
+			table.setFillsViewportHeight(true);
+
+			RegisteredCoursesView rcv = new RegisteredCoursesView();
+			rcv.addScrollPane(table);
 
 		});
 	}
 
-	public JTable createTable(TableModel tm) {
-		return null;
-	}
 }

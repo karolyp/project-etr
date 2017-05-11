@@ -5,12 +5,11 @@ import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 public class RegisteredCoursesView extends JFrame {
 	private JScrollPane scrollPane;
 
-	public RegisteredCoursesView(JTable jTable) {
+	public RegisteredCoursesView() {
 		this.setTitle("Felvett kurzusok");
 		this.setSize(800, 600);
 		this.setResizable(false);
