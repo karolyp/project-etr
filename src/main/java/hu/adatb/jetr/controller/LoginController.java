@@ -47,7 +47,7 @@ public class LoginController {
 					this.loginWindow.getErrorLabel().setText("Sikeres belépés!");
 					logger.info("User {} logged in.", eha);
 					setUserCached(eha);
-
+					this.loginWindow.setVisible(false);
 					new MainWindowController(this.hallgato);
 
 				} catch (UserNotFoundException unfe) {

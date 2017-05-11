@@ -3,6 +3,7 @@ package hu.adatb.jetr.model;
 public class HallgatoBean {
 	private String eha;
 	private String jelszo;
+	private int felev;
 
 	public String getEha() {
 		return eha;
@@ -20,10 +21,18 @@ public class HallgatoBean {
 		this.jelszo = jelszo;
 	}
 
-	public HallgatoBean(String eha, String jelszo) {
-		super();
+	public int getFelev() {
+		return felev;
+	}
+
+	public void setFelev(int felev) {
+		this.felev = felev;
+	}
+
+	public HallgatoBean(String eha, String jelszo, int felev) {
 		this.eha = eha;
 		this.jelszo = jelszo;
+		this.felev = felev;
 	}
 
 }

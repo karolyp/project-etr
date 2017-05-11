@@ -1,20 +1,23 @@
 package hu.adatb.jetr;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Font;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 public class TesztCucc {
 
 	private JFrame frmJetr;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -32,7 +35,7 @@ public class TesztCucc {
 
 	/**
 	 * Create the application.
-	 * 
+	 *
 	 * @wbp.parser.entryPoint
 	 */
 	public TesztCucc() {
@@ -45,43 +48,54 @@ public class TesztCucc {
 	private void initialize() {
 		frmJetr = new JFrame();
 		frmJetr.setTitle("JETR");
-		frmJetr.setBounds(100, 100, 400, 400);
+		frmJetr.setBounds(100, 100, 800, 600);
 		frmJetr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmJetr.getContentPane().setLayout(null);
+		frmJetr.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		JLabel lblUdv = new JLabel("Üdvözöljük!");
-		lblUdv.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblUdv.setBounds(134, 32, 114, 29);
-		frmJetr.getContentPane().add(lblUdv);
+		Object[][] data = { { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true },
+				{ "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true },
+				{ "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true },
+				{ "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true },
+				{ "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true },
+				{ "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true },
+				{ "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true },
+				{ "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }, { "valami", true }
 
-		JPanel panel = new JPanel();
-		panel.setBounds(97, 133, 193, 163);
-		frmJetr.getContentPane().add(panel);
-		panel.setLayout(null);
+		};
+		Object[] columnNames = { "oszlop1", "oszlop2" };
+		TableModel tm = new AbstractTableModel() {
+			@Override
+			public int getColumnCount() {
+				return columnNames.length;
+			}
 
-		JLabel lblEha = new JLabel("EHA:");
-		lblEha.setBounds(27, 43, 71, 14);
-		panel.add(lblEha);
+			@Override
+			public int getRowCount() {
+				return data.length;
+			}
 
-		JLabel lblJelsz = new JLabel("Jelszó:");
-		lblJelsz.setBounds(27, 92, 71, 14);
-		panel.add(lblJelsz);
+			@Override
+			public String getColumnName(int col) {
+				return (String) columnNames[col];
+			}
 
-		textField = new JTextField();
-		textField.setBounds(97, 40, 86, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+			@Override
+			public Object getValueAt(int row, int col) {
+				return data[row][col];
+			}
 
-		passwordField = new JPasswordField();
-		passwordField.setBounds(97, 89, 86, 20);
-		panel.add(passwordField);
+			@Override
+			public Class getColumnClass(int c) {
+				return getValueAt(0, c).getClass();
+			}
 
-		JButton btnBelps = new JButton("Belépés");
-		btnBelps.setBounds(56, 129, 89, 23);
-		panel.add(btnBelps);
+		};
+		table = new JTable(tm);
+		table.setPreferredScrollableViewportSize(new Dimension(800, 600));
+		table.setFillsViewportHeight(true);
 
-		JLabel errorLabel = new JLabel("New label");
-		errorLabel.setBounds(169, 307, 46, 14);
-		frmJetr.getContentPane().add(errorLabel);
+		JScrollPane jsp = new JScrollPane(table);
+		frmJetr.getContentPane().add(jsp, BorderLayout.NORTH);
+
 	}
 }

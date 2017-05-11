@@ -22,7 +22,9 @@ public class AppController {
 		String eha = FileReaderService.getProperties("metadata.tmp").getProperty("user");
 		if (!eha.isEmpty()) {
 			logger.info("Found user in cache: {}", eha);
-			// nem kell bejelentkezés
+			SwingUtilities.invokeLater(() -> {
+				new MainWindowController(this.studentDao.getHallgato(eha));
+			});
 		} else {
 			SwingUtilities.invokeLater(() -> {
 				new LoginWindow();
