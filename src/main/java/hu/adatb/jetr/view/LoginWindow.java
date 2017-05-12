@@ -2,7 +2,10 @@ package hu.adatb.jetr.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,9 +14,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import hu.adatb.jetr.controller.LoginController;
-import javax.swing.ImageIcon;
+import hu.adatb.jetr.services.FileReaderService;
 
 public class LoginWindow extends JFrame {
+
+	private static final long serialVersionUID = 5979677222202070395L;
 
 	private JTextField eha;
 	private JPasswordField jelszo;
@@ -28,6 +33,7 @@ public class LoginWindow extends JFrame {
 		this.setResizable(false);
 
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 
 		JLabel lblUdv = new JLabel("Üdvözöljük!");
 		lblUdv.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -39,11 +45,15 @@ public class LoginWindow extends JFrame {
 
 		this.errorLabel = new JLabel("");
 		this.errorLabel.setForeground(Color.RED);
-		this.errorLabel.setBounds(140, 307, 250, 20);
+		this.errorLabel.setBounds(100, 307, 250, 20);
 		getContentPane().add(errorLabel);
-		
+
 		lblCimer = new JLabel("");
-		lblCimer.setIcon(new ImageIcon(LoginWindow.class.getResource("/img/szte_cimer.png")));
+		try {
+			lblCimer.setIcon(new ImageIcon(ImageIO.read(FileReaderService.getInputStream("szte_cimer.png"))));
+		} catch (IOException e) {
+			e.printStackTrace(); // logger
+		}
 		lblCimer.setBounds(0, 0, 946, 296);
 		getContentPane().add(lblCimer);
 
@@ -56,6 +66,7 @@ public class LoginWindow extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBounds(275, 299, 423, 163);
 		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
 
 		JLabel lblEha = new JLabel("EHA:");
 		lblEha.setFont(new Font("Tahoma", Font.PLAIN, 20));

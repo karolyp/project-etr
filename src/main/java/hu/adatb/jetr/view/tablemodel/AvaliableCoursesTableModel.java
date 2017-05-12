@@ -6,19 +6,18 @@ import javax.swing.table.AbstractTableModel;
 
 import hu.adatb.jetr.model.KurzusBean;
 
-public class RegisteredCoursesTableModel extends AbstractTableModel {
+public class AvaliableCoursesTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -6700628872664383385L;
 	private Object[][] kurzusok;
 	private final String[] header = { "Kurzuskód", "Kurzus neve", "Típus", "Oktató", "Terem", "Félév", "Kredit",
-			"Infosheet" };
+			"Felvétel" };
 
-	public RegisteredCoursesTableModel(List<KurzusBean> kurzusok) {
+	public AvaliableCoursesTableModel(List<KurzusBean> kurzusok) {
 		this.kurzusok = new Object[kurzusok.size()][header.length];
 		for (int i = 0; i < kurzusok.size(); i++) {
-			this.kurzusok[i] = kurzusok.get(i).toArray();
+			this.kurzusok[i] = kurzusok.get(i).toArray(false);
 		}
-
 	}
 
 	@Override
@@ -39,6 +38,23 @@ public class RegisteredCoursesTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		return this.kurzusok[row][col];
+	}
+
+	@Override
+	public Class getColumnClass(int c) {
+		return getValueAt(0, c).getClass();
+	}
+
+	@Override
+	public boolean isCellEditable(int row, int col) {
+		return (col == this.kurzusok[row].length - 1) ? true : false;
+
+	}
+
+	@Override
+	public void setValueAt(Object value, int row, int col) {
+		this.kurzusok[row][col] = value;
+		fireTableCellUpdated(row, col);
 	}
 
 }

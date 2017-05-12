@@ -38,7 +38,7 @@ public class ConnectionFactory {
 
 		} catch (SQLException e) {
 			logger.error("Cannot connect to DB with the given parameters:\n {} \n Application stops.",
-					FileReaderService.getProperties("db.properties").toString());
+					FileReaderService.getProperties("db.properties").toString(), e);
 			System.exit(1);
 		}
 	}
@@ -50,6 +50,11 @@ public class ConnectionFactory {
 	public static void closeConnection() {
 		try {
 			conn.close();
+			if (conn.isClosed()) {
+				logger.info("Connection closed successfully.");
+			} else {
+				throw new SQLException();
+			}
 		} catch (SQLException e) {
 			logger.error("Could not close connection with DB.", e);
 		}

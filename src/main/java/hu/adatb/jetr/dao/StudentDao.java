@@ -85,7 +85,7 @@ public class StudentDao {
 	/**
 	 * A query visszaad: C.CODE, C.NAME, C.TYPE, TEACHER.NAME, CLASSROOM.NAME,
 	 * C.SEMESTER, C.CREDIT
-	 * 
+	 *
 	 * @param hallgato
 	 * @return
 	 */
@@ -95,6 +95,28 @@ public class StudentDao {
 		try (PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "registered_courses.sql")) {
 			ps.setInt(1, hallgato.getFelev());
 			ps.setString(2, hallgato.getEha());
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				kurzusok.add(new KurzusBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getInt(6), rs.getInt(7)));
+			}
+
+		} catch (SQLException e) {
+			logger.error("Error during execution of query.", e);
+		}
+
+		return kurzusok;
+	}
+
+	/*
+	 * SELECT DISTINCT C.CODE, C.NAME, C.TYPE, TEACHER.NAME, CLASSROOM.NAME,
+	 * C.SEMESTER, C.CREDIT FROM H668139.COURSE C
+	 */
+	public List<KurzusBean> getAvaliableCourses(HallgatoBean hallgato) {
+		List<KurzusBean> kurzusok = new ArrayList<>();
+		try (PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "avaliable_courses.sql")) {
+			ps.setString(1, hallgato.getEha());
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {

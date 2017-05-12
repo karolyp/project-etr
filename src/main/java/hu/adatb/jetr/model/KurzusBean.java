@@ -90,7 +90,13 @@ public class KurzusBean {
 	}
 
 	public Object[] toArray() {
-		return new Object[] { this.kod, this.kurzus, this.tipus, this.tanar, this.terem, this.felev, this.kredit };
+		return new Object[] { this.kod, this.kurzus, this.tipus, this.tanar, this.terem, this.felev, this.kredit,
+				"Infosheet" };
+	}
+
+	public Object[] toArray(boolean b) {
+		return new Object[] { this.kod, this.kurzus, this.tipus, this.tanar, this.terem, this.felev, this.kredit,
+				Boolean.FALSE };
 	}
 
 }

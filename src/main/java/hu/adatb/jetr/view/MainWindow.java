@@ -1,14 +1,12 @@
 package hu.adatb.jetr.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.ImageIcon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
@@ -16,24 +14,25 @@ public class MainWindow extends JFrame {
 	private JMenuBar menuBar;
 
 	public MainWindow(String eha) {
+		setBackground(Color.WHITE);
 		this.setTitle(eha);
 		this.setSize(800, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar();
 		getContentPane().setLayout(new BorderLayout(0, 0));
+		getContentPane().setBackground(Color.WHITE);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	private void setJMenuBar() {
 		this.menuBar = new JMenuBar();
+		menuBar.setBackground(Color.WHITE);
 		JMenu menu1 = new JMenu("Menü");
 		JMenuItem menuItem = new JMenuItem("Kijelentkezés");
-		menuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
+		menuItem.addActionListener(arg0 -> {
+
 		});
 		menu1.add(menuItem);
 

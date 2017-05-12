@@ -1,6 +1,5 @@
 package hu.adatb.jetr.controller;
 
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,12 +40,9 @@ public class LoginController {
 					this.hallgato = this.studentDao.getHallgato(eha, password);
 					this.loginWindow.getBelepButton().setEnabled(false);
 
-					float[] color = Color.RGBtoHSB(49, 165, 0, null);
-
-					this.loginWindow.getErrorLabel().setForeground(Color.getHSBColor(color[0], color[1], color[2]));
-					this.loginWindow.getErrorLabel().setText("Sikeres belépés!");
 					logger.info("User {} logged in.", eha);
 					setUserCached(eha);
+
 					this.loginWindow.setVisible(false);
 					new MainWindowController(this.hallgato);
 

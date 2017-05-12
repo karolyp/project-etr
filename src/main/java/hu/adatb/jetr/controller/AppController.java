@@ -17,13 +17,15 @@ public class AppController {
 
 	public AppController() {
 		ConnectionFactory.createConnection();
+		this.addShutdownHook();
+
 		studentDao = new StudentDao();
 
 		String eha = FileReaderService.getProperties("metadata.tmp").getProperty("user");
 		if (!eha.isEmpty()) {
 			logger.info("Found user in cache: {}", eha);
 			SwingUtilities.invokeLater(() -> {
-				new MainWindowController(this.studentDao.getHallgato(eha));
+				new MainWindowController(studentDao.getHallgato(eha));
 			});
 		} else {
 			SwingUtilities.invokeLater(() -> {
@@ -36,6 +38,15 @@ public class AppController {
 
 	public static StudentDao getStudentDao() {
 		return studentDao;
+	}
+
+	public void addShutdownHook() {
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				ConnectionFactory.closeConnection();
+			}
+		});
 	}
 
 }
