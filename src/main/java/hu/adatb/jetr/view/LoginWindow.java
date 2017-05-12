@@ -11,6 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import hu.adatb.jetr.controller.LoginController;
+import javax.swing.ImageIcon;
 
 public class LoginWindow extends JFrame {
 
@@ -18,27 +19,33 @@ public class LoginWindow extends JFrame {
 	private JPasswordField jelszo;
 	private JButton belep;
 	private JLabel errorLabel;
+	private JLabel lblCimer;
 
 	public LoginWindow() {
-		this.setSize(400, 400);
+		this.setSize(951, 491);
 		this.setLocationRelativeTo(null);
 		this.setTitle("JETR");
 		this.setResizable(false);
 
-		this.setLayout(null);
+		getContentPane().setLayout(null);
 
 		JLabel lblUdv = new JLabel("Üdvözöljük!");
 		lblUdv.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblUdv.setBounds(134, 32, 114, 29);
+		lblUdv.setBounds(40, 34, 114, 29);
 
-		this.add(lblUdv);
+		getContentPane().add(lblUdv);
 
-		this.add(this.getLoginPanel());
+		getContentPane().add(this.getLoginPanel());
 
 		this.errorLabel = new JLabel("");
 		this.errorLabel.setForeground(Color.RED);
 		this.errorLabel.setBounds(140, 307, 250, 20);
-		this.add(errorLabel);
+		getContentPane().add(errorLabel);
+		
+		lblCimer = new JLabel("");
+		lblCimer.setIcon(new ImageIcon(LoginWindow.class.getResource("/img/szte_cimer.png")));
+		lblCimer.setBounds(0, 0, 946, 296);
+		getContentPane().add(lblCimer);
 
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,28 +54,30 @@ public class LoginWindow extends JFrame {
 
 	public JPanel getLoginPanel() {
 		JPanel panel = new JPanel();
-		panel.setBounds(97, 133, 193, 163);
+		panel.setBounds(275, 299, 423, 163);
 		panel.setLayout(null);
 
 		JLabel lblEha = new JLabel("EHA:");
-		lblEha.setBounds(27, 43, 71, 14);
+		lblEha.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblEha.setBounds(51, 11, 99, 35);
 		panel.add(lblEha);
 
 		JLabel lblJelsz = new JLabel("Jelszó:");
-		lblJelsz.setBounds(27, 92, 71, 14);
+		lblJelsz.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblJelsz.setBounds(51, 57, 99, 38);
 		panel.add(lblJelsz);
 
 		this.eha = new JTextField();
-		this.eha.setBounds(97, 40, 86, 20);
+		this.eha.setBounds(160, 11, 197, 35);
 		panel.add(eha);
 		this.eha.setColumns(10);
 
 		this.jelszo = new JPasswordField();
-		this.jelszo.setBounds(97, 89, 86, 20);
+		this.jelszo.setBounds(160, 63, 197, 35);
 		panel.add(jelszo);
 
 		this.belep = new JButton("Belépés");
-		this.belep.setBounds(56, 129, 89, 23);
+		this.belep.setBounds(160, 109, 197, 28);
 		panel.add(this.belep);
 
 		return panel;

@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
 
@@ -18,15 +21,21 @@ public class MainWindow extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar();
-		this.setLayout(new BorderLayout(0, 0));
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	private void setJMenuBar() {
 		this.menuBar = new JMenuBar();
-		JMenu menu1 = new JMenu("Menüpont1");
-		menu1.add(new JMenuItem("Almenüpont1"));
+		JMenu menu1 = new JMenu("Menü");
+		JMenuItem menuItem = new JMenuItem("Kijelentkezés");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		menu1.add(menuItem);
 
 		JMenu menu2 = new JMenu("Kurzusok");
 		menu2.add(new JMenuItem("Felvett kurzusok"));
