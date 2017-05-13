@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import hu.adatb.jetr.exception.UserNotFoundException;
 import hu.adatb.jetr.model.HallgatoBean;
 import hu.adatb.jetr.model.KurzusBean;
+import hu.adatb.jetr.model.VizsgaBean;
 
 public class StudentDao {
 	private static final Logger logger = LoggerFactory.getLogger(StudentDao.class);
@@ -129,6 +130,23 @@ public class StudentDao {
 		}
 
 		return kurzusok;
+	}
+	
+	public List<VizsgaBean> getFelvettVizsgak(HallgatoBean hallgato){
+		List<VizsgaBean> vizsgak = new ArrayList<>();
+		try (PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "felvett_vizsgak.sql")) {
+			ps.setString(1, hallgato.getEha());
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				vizsgak.add(new VizsgaBean(rs.getDate(1), rs.getString(2), rs.getInt(3)));
+			}
+
+		} catch (SQLException e) {
+			logger.error("Error during execution of query.", e);
+		}
+		
+		return vizsgak;
 	}
 
 }

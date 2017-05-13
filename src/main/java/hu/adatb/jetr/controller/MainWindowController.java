@@ -35,6 +35,7 @@ public class MainWindowController {
 		this.setRegisteredCoursesListener();
 		this.setAvaliableCoursesListener();
 		this.setLogOutListener();
+		this.setFelvettVizsgakListener();
 		this.mainWindow.addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -58,6 +59,11 @@ public class MainWindowController {
 		this.mainWindow.getJMenuBar().getMenu(1).getItem(1).addActionListener(e -> {
 			CourseViewController cvc = new CourseViewController(this.hallgato,
 					this.studentDao.getAvaliableCourses(this.hallgato));
+		});
+	}
+	private void setFelvettVizsgakListener() {
+		this.mainWindow.getJMenuBar().getMenu(2).getItem(0).addActionListener(e -> {
+			ExamsViewController evc = new ExamsViewController(this.studentDao.getFelvettVizsgak(this.hallgato));
 		});
 	}
 

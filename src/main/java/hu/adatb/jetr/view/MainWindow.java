@@ -43,6 +43,12 @@ public class MainWindow extends JFrame {
 		this.menuBar.add(menu1);
 		this.menuBar.add(menu2);
 		setJMenuBar(this.menuBar);
+		
+		JMenu mnVizsgk = new JMenu("Vizsgák");
+		menuBar.add(mnVizsgk);
+		
+		JMenuItem mntmFelvettVizsgk = new JMenuItem("Felvett vizsgák");
+		mnVizsgk.add(mntmFelvettVizsgk);
 	}
 
 }
