@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import hu.adatb.jetr.dao.ConnectionFactory;
+import hu.adatb.jetr.dao.CourseDao;
 import hu.adatb.jetr.dao.StudentDao;
 import hu.adatb.jetr.services.FileReaderService;
 import hu.adatb.jetr.view.LoginWindow;
@@ -14,12 +15,14 @@ public class AppController {
 	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 
 	private static StudentDao studentDao;
+	private static CourseDao courseDao;
 
 	public AppController() {
 		ConnectionFactory.createConnection();
 		this.addShutdownHook();
 
 		studentDao = new StudentDao();
+		courseDao = new CourseDao();
 
 		String eha = FileReaderService.getProperties("metadata.tmp").getProperty("user");
 		if (!eha.isEmpty()) {
@@ -38,6 +41,10 @@ public class AppController {
 
 	public static StudentDao getStudentDao() {
 		return studentDao;
+	}
+
+	public static CourseDao getCourseDao() {
+		return courseDao;
 	}
 
 	public void addShutdownHook() {
