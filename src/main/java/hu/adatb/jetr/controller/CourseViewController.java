@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,7 +109,7 @@ public class CourseViewController {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] options = new String[] { "Iken", "Nem" };
+				String[] options = new String[] { "Igen", "Nem" };
 				int response;
 				try {
 					response = JOptionPane.showOptionDialog(null, "Biztos?", "Lejelentkezés",
@@ -122,7 +121,8 @@ public class CourseViewController {
 						tm.removeRow(AppController.getStudentDao().getRegisteredCourses(hallgato));
 					}
 
-				} catch (HeadlessException | IOException e1) {
+				} catch (HeadlessException e1) {
+					logger.error(e1.getMessage());
 				}
 			}
 
