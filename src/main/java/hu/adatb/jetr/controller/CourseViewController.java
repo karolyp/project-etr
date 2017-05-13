@@ -2,11 +2,14 @@ package hu.adatb.jetr.controller;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -22,6 +25,7 @@ import hu.adatb.jetr.model.HallgatoBean;
 import hu.adatb.jetr.model.KurzusBean;
 import hu.adatb.jetr.view.CoursesView;
 import hu.adatb.jetr.view.tablemodel.AvaliableCoursesTableModel;
+import hu.adatb.jetr.view.tablemodel.ButtonColumn;
 import hu.adatb.jetr.view.tablemodel.RegisteredCoursesTableModel;
 
 public class CourseViewController {
@@ -71,8 +75,6 @@ public class CourseViewController {
 				JOptionPane.showMessageDialog(cv, "Sikeres felvett kurzusok: " + felveheto.size(), "Sikeres felvétel!",
 						JOptionPane.INFORMATION_MESSAGE);
 				cv.setVisible(false);
-				new CourseViewController(hallgato, this.studentDao.getAvaliableCourses(hallgato));
-
 			} else {
 				JOptionPane.showMessageDialog(cv, "Valószínűleg a kurzus már szerepel a listában!",
 						"Hiba kurzufelvétel során", JOptionPane.ERROR_MESSAGE);
@@ -82,27 +84,52 @@ public class CourseViewController {
 
 	}
 
-	public CourseViewController(List<KurzusBean> kurzusok, boolean b) { // felvett
-																		// kurzusokhoz
-		TableModel tm = new RegisteredCoursesTableModel(kurzusok);
+	public CourseViewController(HallgatoBean hallgato, List<KurzusBean> kurzusok, boolean b) {
+		this.courseDao = AppController.getCourseDao();
+
+		RegisteredCoursesTableModel tm = new RegisteredCoursesTableModel(kurzusok);
 		JTable table = new JTable(tm);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 600));
 		table.setFillsViewportHeight(true);
 
-		table.addMouseListener(new MouseAdapter() {
+		Action infoSheetClicked = new AbstractAction() {
+			private static final long serialVersionUID = 7441881659224153070L;
 
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				int row = table.rowAtPoint(e.getPoint());
-				int col = table.columnAtPoint(e.getPoint());
-				if (e.getClickCount() == 2 && col == table.getColumnCount() - 1 && row >= 0) {
-					logger.info("Infosheet requested for course {}", table.getValueAt(row, 0));
-					// TODO: infosheet gui implementálása
-					// proto: new InfosheetWindow(String kurzuskod)
+			public void actionPerformed(ActionEvent e) {
+				logger.info("Infosheet requested");
+				// int modelRow = Integer.valueOf(e.getActionCommand());
+				// TODO: infosheet megvalósítás
+				// proto: new InfoSheet(kurzusok.get(modelRow).getKurzus());
+			}
+
+		};
+
+		Action change = new AbstractAction() {
+			private static final long serialVersionUID = -3625827743573202700L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String[] options = new String[] { "Iken", "Nem" };
+				int response;
+				try {
+					response = JOptionPane.showOptionDialog(null, "Biztos?", "Lejelentkezés",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[1]);
+
+					if (response == 0) {
+						int row = Integer.valueOf(e.getActionCommand());
+						deleteFromDb(hallgato, kurzusok.get(row).getKod());
+						tm.removeRow(AppController.getStudentDao().getRegisteredCourses(hallgato));
+					}
+
+				} catch (HeadlessException | IOException e1) {
 				}
 			}
 
-		});
+		};
+
+		new ButtonColumn(table, infoSheetClicked, table.getColumnCount() - 2);
+		new ButtonColumn(table, change, table.getColumnCount() - 1);
 
 		CoursesView rcv = new CoursesView("Felvett kurzusok");
 		resizeColumnWidth(table);
@@ -120,4 +147,13 @@ public class CourseViewController {
 			table.getColumnModel().getColumn(column).setPreferredWidth(width);
 		}
 	}
+
+	public void deleteFromDb(HallgatoBean hallgato, String kurzus) {
+		if (this.courseDao.deleteCourse(hallgato.getEha(), kurzus)) {
+			logger.info("Deleted from DB.");
+		} else {
+			logger.error("Could not delete course {} from DB!", kurzus);
+		}
+	}
+
 }

@@ -49,8 +49,8 @@ public class MainWindowController {
 
 	private void setRegisteredCoursesListener() {
 		this.mainWindow.getJMenuBar().getMenu(1).getItem(0).addActionListener(e -> {
-			CourseViewController cvc = new CourseViewController(this.studentDao.getRegisteredCourses(this.hallgato),
-					false);
+			CourseViewController cvc = new CourseViewController(this.hallgato,
+					this.studentDao.getRegisteredCourses(this.hallgato), false);
 		});
 
 	}

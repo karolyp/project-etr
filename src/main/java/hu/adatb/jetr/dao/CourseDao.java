@@ -111,4 +111,18 @@ public class CourseDao {
 		}
 	}
 
+	public boolean deleteCourse(String eha, String kurzus) {
+		try (PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "delete_course.sql")) {
+			ps.setString(1, eha);
+			ps.setString(2, kurzus);
+
+			return ps.executeUpdate() == 1;
+
+		} catch (SQLException e) {
+			// TODO logger
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

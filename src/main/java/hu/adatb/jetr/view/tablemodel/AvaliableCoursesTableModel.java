@@ -13,11 +13,15 @@ public class AvaliableCoursesTableModel extends AbstractTableModel {
 	private final String[] header = { "Kurzuskód", "Kurzus neve", "Típus", "Oktató", "Terem", "Félév", "Kredit",
 			"Felvétel" };
 
-	public AvaliableCoursesTableModel(List<KurzusBean> kurzusok) {
+	public void setData(List<KurzusBean> kurzusok) {
 		this.kurzusok = new Object[kurzusok.size()][header.length];
 		for (int i = 0; i < kurzusok.size(); i++) {
 			this.kurzusok[i] = kurzusok.get(i).toArray(false);
 		}
+	}
+
+	public AvaliableCoursesTableModel(List<KurzusBean> kurzusok) {
+		this.setData(kurzusok);
 	}
 
 	@Override
@@ -48,7 +52,6 @@ public class AvaliableCoursesTableModel extends AbstractTableModel {
 	@Override
 	public boolean isCellEditable(int row, int col) {
 		return (col == this.kurzusok[row].length - 1) ? true : false;
-
 	}
 
 	@Override

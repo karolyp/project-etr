@@ -91,7 +91,7 @@ public class KurzusBean {
 
 	public Object[] toArray() {
 		return new Object[] { this.kod, this.kurzus, this.tipus, this.tanar, this.terem, this.felev, this.kredit,
-				"Infosheet" };
+				"Infosheet", "Lejelentkezés" };
 	}
 
 	public Object[] toArray(boolean b) {
