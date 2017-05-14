@@ -152,5 +152,21 @@ public class StudentDao {
 
 		return vizsgak;
 	}
+	
+	public List<KurzusBean> getOrarend(HallgatoBean hallgato) {
+		List<KurzusBean> kurzusok = new ArrayList<>();
+		try (PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "timetable.sql")) {
+			ps.setString(1, hallgato.getEha());
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				kurzusok.add(new KurzusBean(rs.getString(1), rs.getString(2), rs.getString(3)));
+			}
+
+		} catch (SQLException e) {
+			logger.error("Error during execution of query.", e);
+		}
+		return kurzusok;
+	}
 
 }

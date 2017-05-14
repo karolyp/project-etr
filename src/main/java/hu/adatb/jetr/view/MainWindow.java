@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JButton;
 
 public class MainWindow extends JFrame {
 
@@ -34,6 +35,9 @@ public class MainWindow extends JFrame {
 		menuItem.addActionListener(arg0 -> {
 
 		});
+		
+		JMenuItem mntmrarend = new JMenuItem("Órarend");
+		menu1.add(mntmrarend);
 		menu1.add(menuItem);
 
 		JMenu menu2 = new JMenu("Kurzusok");

@@ -34,6 +34,7 @@ public class MainWindowController {
 		this.hallgato = hallgato;
 		this.setRegisteredCoursesListener();
 		this.setAvaliableCoursesListener();
+		this.setTimetableListener();
 		this.setLogOutListener();
 		this.setFelvettVizsgakListener();
 		this.setAvaliableExamsListener();
@@ -77,9 +78,16 @@ public class MainWindowController {
 					AppController.getExamDao().getAvaliableExams(this.hallgato), false);
 		});
 	}
+	
+	private void setTimetableListener() {
+		this.mainWindow.getJMenuBar().getMenu(0).getItem(0).addActionListener(e -> {
+			TimetableViewController tvc = new TimetableViewController(this.hallgato,
+					AppController.getStudentDao().getOrarend(this.hallgato));
+		});
+	}
 
 	private void setLogOutListener() {
-		this.mainWindow.getJMenuBar().getMenu(0).getItem(0).addActionListener(e -> {
+		this.mainWindow.getJMenuBar().getMenu(0).getItem(1).addActionListener(e -> {
 			removeUserFromCache();
 			logger.info("User {} logged out.", hallgato.getEha());
 			this.hallgato = null;

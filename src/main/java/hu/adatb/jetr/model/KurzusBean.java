@@ -16,6 +16,16 @@ public class KurzusBean {
 	private String terem;
 	private int felev;
 	private int kredit;
+	private String ido;
+
+	public String getIdo() {
+		return ido;
+	}
+
+	public void setIdo(String ido) {
+		this.ido = ido;
+	}
+
 
 	public String getKod() {
 		return kod;
@@ -82,6 +92,12 @@ public class KurzusBean {
 		this.felev = felev;
 		this.kredit = kredit;
 	}
+	
+	public KurzusBean(String kurzus, String terem, String ido){
+		this.kurzus = kurzus;
+		this.terem = terem;
+		this.ido = ido;
+	}
 
 	@Override
 	public String toString() {
@@ -92,6 +108,10 @@ public class KurzusBean {
 	public Object[] toArray() {
 		return new Object[] { this.kod, this.kurzus, this.tipus, this.tanar, this.terem, this.felev, this.kredit,
 				"Infosheet", "Lejelentkezés" };
+	}
+	
+	public Object[] toArray1() {
+		return new Object[] { this.kurzus, this.terem, this.ido};
 	}
 
 	public Object[] toArray(boolean b) {
