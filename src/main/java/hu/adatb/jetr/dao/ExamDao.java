@@ -65,6 +65,7 @@ public class ExamDao {
 
 		try (PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "avaliable_exams.sql")) {
 			ps.setString(1, hallgato.getEha());
+			ps.setString(2, hallgato.getEha());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				vizsgak.add(new VizsgaBean(rs.getDate(1), rs.getString(2), rs.getString(3), rs.getString(4),
