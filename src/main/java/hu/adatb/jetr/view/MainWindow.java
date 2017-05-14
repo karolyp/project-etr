@@ -1,61 +1,67 @@
 package hu.adatb.jetr.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JSplitPane;
+import javax.swing.JToolBar;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class MainWindow extends JFrame {
-
-	private static final long serialVersionUID = -2271818901148023358L;
-	private JMenuBar menuBar;
-
+	
+		public JButton btnKurzusFelvetel;
+		public JButton btnFelvettKurzusok;
+		public JButton btnFelvettVizsgk;
+		public JButton btnVizsgkFelvtele;
+		public JButton btnOrarend;
+		public JButton btnKijelentkezes;
+		
 	public MainWindow(String eha) {
-		setBackground(Color.WHITE);
+		getContentPane().setLayout(null);
+	
+		btnKurzusFelvetel = new JButton("Kurzusok felvétele");
+		btnKurzusFelvetel.setBounds(27, 70, 174, 43);
+		getContentPane().add(btnKurzusFelvetel);
+		
+		btnFelvettKurzusok = new JButton("Felvett kurzusok");
+		btnFelvettKurzusok.setBounds(27, 11, 174, 43);
+		getContentPane().add(btnFelvettKurzusok);
+		
+		btnFelvettVizsgk = new JButton("Felvett vizsgák");
+		btnFelvettVizsgk.setBounds(234, 11, 174, 43);
+		getContentPane().add(btnFelvettVizsgk);
+		
+		btnVizsgkFelvtele = new JButton("Vizsgák felvétele");
+		btnVizsgkFelvtele.setBounds(234, 70, 174, 43);
+		getContentPane().add(btnVizsgkFelvtele);
+		
+		
+		
+		btnOrarend = new JButton("Órarend");
+		btnOrarend.setBounds(127, 161, 174, 43);
+		getContentPane().add(btnOrarend);
+		
+		btnKijelentkezes = new JButton("Kijelentkezés");
+		btnKijelentkezes.setBackground(new Color(255, 99, 71));
+		btnKijelentkezes.setForeground(Color.BLACK);
+		btnKijelentkezes.setBounds(150, 215, 137, 33);
+		getContentPane().add(btnKijelentkezes);
 		this.setTitle(eha);
-		this.setSize(800, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setJMenuBar();
-		getContentPane().setLayout(new BorderLayout(0, 0));
-		getContentPane().setBackground(Color.WHITE);
+		this.setSize(440, 320);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
-	private void setJMenuBar() {
-		this.menuBar = new JMenuBar();
-		menuBar.setBackground(Color.WHITE);
-		JMenu menu1 = new JMenu("Menü");
-		JMenuItem menuItem = new JMenuItem("Kijelentkezés");
-		menuItem.addActionListener(arg0 -> {
-
-		});
-		
-		JMenuItem mntmrarend = new JMenuItem("Órarend");
-		menu1.add(mntmrarend);
-		menu1.add(menuItem);
-
-		JMenu menu2 = new JMenu("Kurzusok");
-		menu2.add(new JMenuItem("Felvett kurzusok"));
-		menu2.add(new JMenuItem("Kurzusok felvétele"));
-
-		this.menuBar.add(menu1);
-		this.menuBar.add(menu2);
-		setJMenuBar(this.menuBar);
-
-		JMenu mnVizsgk = new JMenu("Vizsgák");
-		menuBar.add(mnVizsgk);
-
-		JMenuItem mntmFelvettVizsgk = new JMenuItem("Felvett vizsgák");
-		mnVizsgk.add(mntmFelvettVizsgk);
-
-		JMenuItem mntmAvaliableExams = new JMenuItem("Vizsgák felvétele");
-		mnVizsgk.add(mntmAvaliableExams);
-	}
-
+	
 }

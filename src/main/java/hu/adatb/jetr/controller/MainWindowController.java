@@ -18,6 +18,7 @@ import hu.adatb.jetr.services.FileReaderService;
 import hu.adatb.jetr.view.CoursesView;
 import hu.adatb.jetr.view.LoginWindow;
 import hu.adatb.jetr.view.MainWindow;
+import hu.adatb.jetr.view.MainWindow;
 
 public class MainWindowController {
 
@@ -34,10 +35,12 @@ public class MainWindowController {
 		this.hallgato = hallgato;
 		this.setRegisteredCoursesListener();
 		this.setAvaliableCoursesListener();
-		this.setTimetableListener();
-		this.setLogOutListener();
 		this.setFelvettVizsgakListener();
 		this.setAvaliableExamsListener();
+		this.setLogOutListener();
+		this.setTimetableListener();
+		
+		
 
 		this.mainWindow.addWindowListener(new WindowAdapter() {
 
@@ -51,43 +54,43 @@ public class MainWindowController {
 	}
 
 	private void setRegisteredCoursesListener() {
-		this.mainWindow.getJMenuBar().getMenu(1).getItem(0).addActionListener(e -> {
-			CourseViewController cvc = new CourseViewController(this.hallgato,
+		this.mainWindow.btnFelvettKurzusok.addActionListener(e -> {
+			new CourseViewController(this.hallgato,
 					this.studentDao.getRegisteredCourses(this.hallgato), false);
 		});
 
 	}
 
 	private void setAvaliableCoursesListener() {
-		this.mainWindow.getJMenuBar().getMenu(1).getItem(1).addActionListener(e -> {
-			CourseViewController cvc = new CourseViewController(this.hallgato,
+		this.mainWindow.btnKurzusFelvetel.addActionListener(e -> {
+			new CourseViewController(this.hallgato,
 					this.studentDao.getAvaliableCourses(this.hallgato));
 		});
 	}
 
 	private void setFelvettVizsgakListener() {
-		this.mainWindow.getJMenuBar().getMenu(2).getItem(0).addActionListener(e -> {
-			ExamsViewController evc = new ExamsViewController(this.hallgato,
+		this.mainWindow.btnFelvettVizsgk.addActionListener(e -> {
+			new ExamsViewController(this.hallgato,
 					this.studentDao.getFelvettVizsgak(this.hallgato));
 		});
 	}
 
 	private void setAvaliableExamsListener() {
-		this.mainWindow.getJMenuBar().getMenu(2).getItem(1).addActionListener(e -> {
-			ExamsViewController evc = new ExamsViewController(this.hallgato,
+		this.mainWindow.btnVizsgkFelvtele.addActionListener(e -> {
+			new ExamsViewController(this.hallgato,
 					AppController.getExamDao().getAvaliableExams(this.hallgato), false);
 		});
 	}
 	
 	private void setTimetableListener() {
-		this.mainWindow.getJMenuBar().getMenu(0).getItem(0).addActionListener(e -> {
-			TimetableViewController tvc = new TimetableViewController(this.hallgato,
+		this.mainWindow.btnOrarend.addActionListener(e -> {
+			new TimetableViewController(this.hallgato,
 					AppController.getStudentDao().getOrarend(this.hallgato));
 		});
 	}
 
 	private void setLogOutListener() {
-		this.mainWindow.getJMenuBar().getMenu(0).getItem(1).addActionListener(e -> {
+		this.mainWindow.btnKijelentkezes.addActionListener(e -> {
 			removeUserFromCache();
 			logger.info("User {} logged out.", hallgato.getEha());
 			this.hallgato = null;
