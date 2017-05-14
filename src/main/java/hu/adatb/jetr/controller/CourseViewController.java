@@ -35,9 +35,7 @@ public class CourseViewController {
 	private CourseDao courseDao;
 	private StudentDao studentDao;
 
-	public CourseViewController(HallgatoBean hallgato, List<KurzusBean> kurzusok) { // felvehető
-																					// //
-		// kurzusokhoz
+	public CourseViewController(HallgatoBean hallgato, List<KurzusBean> kurzusok) {
 		this.selectedCourses = new ArrayList<>();
 		this.courseDao = AppController.getCourseDao();
 		this.studentDao = AppController.getStudentDao();

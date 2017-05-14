@@ -118,6 +118,11 @@ public class ButtonColumn extends AbstractCellEditor
 			renderButton.setIcon(null);
 		}
 
+		if ("nemlehet".equals(value.toString())) {
+			renderButton.setText("Lejelentkezés");
+			renderButton.setEnabled(false);
+		}
+
 		return renderButton;
 	}
 

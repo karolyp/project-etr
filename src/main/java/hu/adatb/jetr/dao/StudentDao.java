@@ -131,21 +131,25 @@ public class StudentDao {
 
 		return kurzusok;
 	}
-	
-	public List<VizsgaBean> getFelvettVizsgak(HallgatoBean hallgato){
+
+	// Date datum, String kurzuskod, String kurzusNev, int jelentkezok, int
+	// maxJelentkezok, int jegy
+	// V.VI_DATUM, C.CODE.NAME, VI.JELENTKEZETT, VI.MAX_JELENTKEZO FROM VIZSGA
+	public List<VizsgaBean> getFelvettVizsgak(HallgatoBean hallgato) {
 		List<VizsgaBean> vizsgak = new ArrayList<>();
 		try (PreparedStatement ps = ScriptRunner.createPreparedStatement(this.conn, "felvett_vizsgak.sql")) {
 			ps.setString(1, hallgato.getEha());
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-				vizsgak.add(new VizsgaBean(rs.getDate(1), rs.getString(2), rs.getInt(3)));
+				vizsgak.add(new VizsgaBean(rs.getDate(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),
+						rs.getInt(6)));
 			}
 
 		} catch (SQLException e) {
 			logger.error("Error during execution of query.", e);
 		}
-		
+
 		return vizsgak;
 	}
 

@@ -6,27 +6,22 @@ import javax.swing.table.AbstractTableModel;
 
 import hu.adatb.jetr.model.VizsgaBean;
 
-public class ExamsTableModel extends AbstractTableModel {
+public class AvaliableExamsTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -6700628872664383385L;
 	private Object[][] vizsgak;
 	private List<VizsgaBean> vizsgaList;
 
-	private final String[] header = { "Dátum", "Kurzus", "Jelentkezők", "Max jelentkezők", "Jegy\n(0=nincs)",
-			"Lejelentkezés" };
+	private final String[] header = { "Dátum", "Kurzus", "Terem", "Jelentkezők", "Max jelentkezők", "Felvétel" };
 
 	public void setVizsga(List<VizsgaBean> vizsgak) {
 		this.vizsgak = new Object[vizsgak.size()][header.length];
 		for (int i = 0; i < vizsgak.size(); i++) {
-			if (vizsgak.get(i).getJegy() >= 2) {
-				this.vizsgak[i] = vizsgak.get(i).toArray(false);
-			} else {
-				this.vizsgak[i] = vizsgak.get(i).toArray();
-			}
+			this.vizsgak[i] = vizsgak.get(i).toArray(69);
 		}
 	}
 
-	public ExamsTableModel(List<VizsgaBean> vizsgak) {
+	public AvaliableExamsTableModel(List<VizsgaBean> vizsgak) {
 		this.vizsgaList = vizsgak;
 		this.setVizsga(vizsgak);
 	}
@@ -62,15 +57,7 @@ public class ExamsTableModel extends AbstractTableModel {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		if (col == vizsgak[row].length - 1) {
-			if ((Integer) this.vizsgak[row][4] >= 2) {
-				return false;
-			} else {
-				return true;
-			}
-		} else {
-			return false;
-		}
+		return (col == vizsgak[row].length - 1) ? true : false;
 	}
 
 }

@@ -36,6 +36,8 @@ public class MainWindowController {
 		this.setAvaliableCoursesListener();
 		this.setLogOutListener();
 		this.setFelvettVizsgakListener();
+		this.setAvaliableExamsListener();
+
 		this.mainWindow.addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -61,9 +63,18 @@ public class MainWindowController {
 					this.studentDao.getAvaliableCourses(this.hallgato));
 		});
 	}
+
 	private void setFelvettVizsgakListener() {
 		this.mainWindow.getJMenuBar().getMenu(2).getItem(0).addActionListener(e -> {
-			ExamsViewController evc = new ExamsViewController(this.studentDao.getFelvettVizsgak(this.hallgato));
+			ExamsViewController evc = new ExamsViewController(this.hallgato,
+					this.studentDao.getFelvettVizsgak(this.hallgato));
+		});
+	}
+
+	private void setAvaliableExamsListener() {
+		this.mainWindow.getJMenuBar().getMenu(2).getItem(1).addActionListener(e -> {
+			ExamsViewController evc = new ExamsViewController(this.hallgato,
+					AppController.getExamDao().getAvaliableExams(this.hallgato), false);
 		});
 	}
 
